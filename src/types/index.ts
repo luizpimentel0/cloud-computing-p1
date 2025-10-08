@@ -10,6 +10,7 @@ export type Vehicle = {
   brand: string;
   model: string;
   year: number;
+  price: number;
   licensePlate: string;
   available: boolean;
 }
