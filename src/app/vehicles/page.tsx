@@ -1,3 +1,4 @@
+import DeleteButton from '@/components/DeleteButton';
 import { Vehicle } from '@/types';
 import Link from 'next/link';
 
@@ -28,7 +29,6 @@ export default async function VehicleList() {
               <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Ano</th>
               <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Placa</th>
               <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Preço</th>
-              <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Disponível</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-100">
@@ -46,6 +46,14 @@ export default async function VehicleList() {
                   >
                     {v.available ? 'Sim' : 'Não'}
                   </span>
+                </td>
+                <td>
+                  <Link href={`/vehicles/edit/${v.id}`}>
+                    <button className="btn bg-teal-700 hover:bg-teal-800 text-white px-4 py-2 rounded-md cursor-pointer">Editar</button>
+                  </Link>
+                </td>
+                <td>
+                  <DeleteButton id={v.id} />
                 </td>
               </tr>
             ))}
