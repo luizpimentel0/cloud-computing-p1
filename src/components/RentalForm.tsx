@@ -1,4 +1,5 @@
 'use client';
+import { Client, Vehicle } from '@/types';
 import { useEffect, useState } from 'react';
 
 export default function RentalForm() {
@@ -13,9 +14,9 @@ export default function RentalForm() {
     fetch('/api/vehicles').then(res => res.json()).then(setVehicles);
   }, []);
 
-  const handleChange = (e: any) => setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChange = (e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => setForm({ ...form, [e.target.name]: e.target.value });
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     await fetch('/api/rentals', {
       method: 'POST',
@@ -26,15 +27,15 @@ export default function RentalForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 p-4 max-w-md mx-auto">
+    <form onSubmit={handleSubmit} className="space-y-4 py-4">
       <select name="clientId" onChange={handleChange} className="input">
         <option value="">Selecione o cliente</option>
-        {clients.map((c: any) => <option key={c.id} value={c.id}>{c.name}</option>)}
+        {clients.map((c: Client) => <option key={c.id} value={c.id}>{c.name}</option>)}
       </select>
 
       <select name="vehicleId" onChange={handleChange} className="input">
         <option value="">Selecione o veículo</option>
-        {vehicles.map((v: any) => <option key={v.id} value={v.id}>{v.brand} {v.model}</option>)}
+        {vehicles.map((v: Vehicle) => <option key={v.id} value={v.id}>{v.brand} {v.model}</option>)}
       </select>
 
       <input name="startDate" onChange={handleChange} placeholder="Início" type="datetime-local" className="input" />

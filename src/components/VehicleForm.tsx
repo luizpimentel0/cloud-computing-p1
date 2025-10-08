@@ -7,12 +7,12 @@ export default function VehicleForm() {
     brand: '', model: '', year: '', licensePlate: '', price: '', available: true
   });
 
-  const handleChange = (e: any) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
     setForm({ ...form, [name]: type === 'checkbox' ? checked : value });
   };
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     await fetch('/api/vehicles', {
       method: 'POST',
@@ -23,7 +23,7 @@ export default function VehicleForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 p-4 max-w-md mx-auto">
+    <form onSubmit={handleSubmit} className="space-y-4 py-4">
       <input name="brand" onChange={handleChange} placeholder="Marca" className="input" />
       <input name="model" onChange={handleChange} placeholder="Modelo" className="input" />
       <input name="year" onChange={handleChange} placeholder="Ano" type="number" className="input" />
